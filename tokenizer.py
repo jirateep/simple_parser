@@ -1,4 +1,4 @@
-class tokenizer() :
+class Tokenizer() :
 	def __init__() :
 		self.soul = 
 		{
