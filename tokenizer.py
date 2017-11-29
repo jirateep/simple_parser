@@ -63,11 +63,34 @@ class Tokenizer :
 				'full_stop' : ['error',True],
 				'white_space' : ['error',True],
 				'error' : ['error',True]
+			},
+			'literal' : 
+			{
+				'digit' : ['iteral',True],
+				'letter' : ['iteral',True],
+				'literal' : ['iteral',True],
+				'full_stop' : ['iteral',True],
+				'white_space' : ['iteral',True],
+				'error' : ['iteral',True]
 			}
 		}
 
 	def get_status(self, status, now_type) :
 		return self.soul[status][now_type]
+
+	def get_char_type(self, now_char) :
+		if ord('0') <= ord(now_char) <= ord('9') :
+			return 'digit'
+		elif ord('a') <= ord(now_char.lower()) <= ord('z') :
+			return 'letter'
+		elif now_char in ['-','+','*','/','(',')',';'] :
+			return 'literal'
+		elif now_char == '.' :
+			return 'full_stop'
+		elif now_char in [' ','\t','\n','\r'] :
+			return 'white_space'
+		else :
+			return 'error'
 
 	def tokenizing(self, sentence) :
 		start_pos = stop_pos = 0
@@ -76,19 +99,8 @@ class Tokenizer :
 		is_cut = False
 		while stop_pos <= end_pos :
 			now_char = sentence[stop_pos]
-			if ord('0') <= ord(now_char) <= ord('9') :
-				now_status, is_cut = self.get_status(now_status, 'digit')
-			elif ord('a') <= ord(now_char.lower()) <= ord('z') :
-				now_status, is_cut = self.get_status(now_status, 'letter')
-			elif now_char in ['-','+','*','/','(',')'] :
-				now_status, is_cut = self.get_status(now_status, 'literal')
-			elif now_char == '.' :
-				now_status, is_cut = self.get_status(now_status, 'full_stop')
-			elif now_char in [' ','\t','\n','\r'] :
-				now_status, is_cut = self.get_status(now_status, 'white_space')
-			else :
-				now_status, is_cut = self.get_status(now_status, 'error')
-
+			char_type = self.get_char_type(now_char)
+			now_status, is_cut = self.get_status(now_status, char_type)
 			if is_cut :
 				print(now_status, sentence[start_pos:stop_pos])
 				start_pos = stop_pos
