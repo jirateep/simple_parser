@@ -66,12 +66,12 @@ class Tokenizer :
 			},
 			'literal' : 
 			{
-				'digit' : ['iteral',True],
-				'letter' : ['iteral',True],
-				'literal' : ['iteral',True],
-				'full_stop' : ['iteral',True],
-				'white_space' : ['iteral',True],
-				'error' : ['iteral',True]
+				'digit' : ['literal',True],
+				'letter' : ['literal',True],
+				'literal' : ['literal',True],
+				'full_stop' : ['literal',True],
+				'white_space' : ['literal',True],
+				'error' : ['literal',True]
 			}
 		}
 
