@@ -104,12 +104,13 @@ class Tokenizer :
 			now_status, is_cut = self.get_status(now_status, char_type)
 			if is_cut :
 				#print(now_status, sentence[start_pos:stop_pos])
-				result.append({'word':sentence[start_pos:stop_pos], 'status':now_status})
+				if now_status != 'white_space' :
+					result.append({'word':sentence[start_pos:stop_pos], 'status':now_status.upper()})
 				start_pos = stop_pos
 				now_status = 'start'
-
 			else :
 				stop_pos += 1
-		result.append({'word':sentence[start_pos:stop_pos], 'status':now_status})
+		if now_status != 'white_space' :
+			result.append({'word':sentence[start_pos:stop_pos], 'status':now_status.upper()})
 		#print(now_status, sentence[start_pos:stop_pos])
 		return result
