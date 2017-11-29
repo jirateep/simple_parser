@@ -83,7 +83,7 @@ class Tokenizer :
 			return 'digit'
 		elif ord('a') <= ord(now_char.lower()) <= ord('z') :
 			return 'letter'
-		elif now_char in ['-','+','*','/','(',')',';'] :
+		elif now_char in ['-','+','*','/','(',')',';','='] :
 			return 'literal'
 		elif now_char == '.' :
 			return 'full_stop'
