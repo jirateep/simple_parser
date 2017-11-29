@@ -93,6 +93,7 @@ class Tokenizer :
 			return 'error'
 
 	def tokenizing(self, sentence) :
+		result = []
 		start_pos = stop_pos = 0
 		end_pos = len(sentence) - 1
 		now_status = 'start'
@@ -102,10 +103,13 @@ class Tokenizer :
 			char_type = self.get_char_type(now_char)
 			now_status, is_cut = self.get_status(now_status, char_type)
 			if is_cut :
-				print(now_status, sentence[start_pos:stop_pos])
+				#print(now_status, sentence[start_pos:stop_pos])
+				result.append({'word':sentence[start_pos:stop_pos], 'status':now_status})
 				start_pos = stop_pos
 				now_status = 'start'
+
 			else :
 				stop_pos += 1
-
-		print(now_status, sentence[start_pos:stop_pos])
+		result.append({'word':sentence[start_pos:stop_pos], 'status':now_status})
+		#print(now_status, sentence[start_pos:stop_pos])
+		return result
