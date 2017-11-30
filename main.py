@@ -1,7 +1,9 @@
 from tokenizer import Tokenizer
+from parser import Parser
 
 sentence = ' '
 tokenizer = Tokenizer()
+parser = Parser()
 while True :
 	sentence = input()
 	if len(sentence) > 0 :
