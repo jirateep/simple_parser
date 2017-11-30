@@ -35,7 +35,7 @@ class Parser :
 				')' : ['error'],
 				'=' : ['=','E','S2'],
 				';' : ['error'],
-				'' : []
+				'' : ['error']
 			},
 			'S2' : 
 			{
@@ -50,7 +50,7 @@ class Parser :
 				')' : ['error'],
 				'=' : ['error'],
 				';' : [';','S'],
-				'' : []
+				'' : ['error']
 			},
 			'E' : 
 			{
@@ -145,18 +145,19 @@ class Parser :
 		}
 
 	def get_list(self, token) :
-		#print(self.stack[len(self.stack)-1])
-		#print(token)
 		poping = self.stack.pop(0)
-		print(poping)
-		print(token)
+		#print(poping)
+		#print(token)
 		return self.soul[poping][token]
 
 	def is_correct(self) :
 		while not self.delete_same_token() and len(self.stack) != 0 :
 			add_list = self.get_list('')
+			if add_list == ['error'] :
+				return False
 			self.stack = add_list + self.stack
-			print('last stack: ' + str(self.stack))
+			#print('last stack: ' + str(self.stack))
+		return True
 
 	def delete_same_token(self) :
 		check = False
@@ -172,14 +173,17 @@ class Parser :
 		#print(self.stack)
 
 	def new_token(self, token) :
-		print('in: ' + token)
+		#print('in: ' + token)
 		self.tokens = [token] + self.tokens
 		#self.tokens.append(token)
 		while not self.delete_same_token() :
 			add_list = self.get_list(token)
+			if add_list == ['error'] :
+				return False
 			self.stack = add_list + self.stack
-			print('be stack: ' + str(self.stack))
+			#print('be stack: ' + str(self.stack))
 		
-		print('stack: ' + str(self.stack))
-		print('tokens: ' + str(self.tokens))
-		print()
+		#print('stack: ' + str(self.stack))
+		#print('tokens: ' + str(self.tokens))
+		#print()
+		return True
