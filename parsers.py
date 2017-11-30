@@ -1,5 +1,10 @@
 class Parser :
-	def __init__(self) :
+
+	def set_parser(self) :
 		self.stack = []
 		self.tokens = []
-		print('hi')
+
+	def __init__(self) :
+		self.set_parser()
+
+	

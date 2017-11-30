@@ -7,6 +7,7 @@ class Tokenizer :
 		return self.sentence
 
 	def __init__(self) :
+		self.set_tokenizer()
 		self.soul = {
 			'start' : 
 			{
@@ -81,7 +82,6 @@ class Tokenizer :
 				'error' : ['literal',True]
 			}
 		}
-		self.set_tokenizer()
 
 	def get_status(self, status, now_type) :
 		return self.soul[status][now_type]
