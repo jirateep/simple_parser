@@ -76,10 +76,10 @@ class Tokenizer :
 		}
 
 	def set_tokenizer(self, sentence) :
-		self.sentence = sentence
+		self.sentence = sentence.rstrip()
 		self.start_pos = self.stop_pos = 0
-		self.end_pos = len(sentence) - 1
-		
+		self.end_pos = len(self.sentence) - 1
+		return self.sentence
 
 	def get_status(self, status, now_type) :
 		return self.soul[status][now_type]
@@ -98,8 +98,13 @@ class Tokenizer :
 		else :
 			return 'error'
 
-	def tokenizing(self) :
-		result = []
+	def is_end(self) :
+		return self.stop_pos > self.end_pos
+
+	def name_literator(self, status, word) :
+		return word if status == 'LITERAL' else status
+
+	def next(self) :
 		now_status = 'start'
 		is_cut = False
 		while self.stop_pos <= self.end_pos :
@@ -108,11 +113,15 @@ class Tokenizer :
 			now_status, is_cut = self.get_status(now_status, char_type)
 			if is_cut :
 				if now_status != 'white_space' :
-					result.append({'word':self.sentence[self.start_pos:self.stop_pos], 'status':now_status.upper()})
+					word = self.sentence[self.start_pos:self.stop_pos]
+					status = self.name_literator(now_status.upper(),word)
+					return {'word':word, 'status':status}
 				self.start_pos = self.stop_pos
 				now_status = 'start'
 			else :
 				self.stop_pos += 1
 		if now_status != 'white_space' :
-			result.append({'word':self.sentence[self.start_pos:self.stop_pos], 'status':now_status.upper()})
-		return result
+			word = self.sentence[self.start_pos:self.stop_pos]
+			status = self.name_literator(now_status.upper(),word)
+			return {'word':word, 'status':status}
+		return
