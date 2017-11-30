@@ -2,7 +2,8 @@ class Tokenizer :
 	
 	def set_tokenizer(self, sentence='') :
 		self.sentence = sentence.rstrip()
-		self.start_pos = self.stop_pos = 0
+		self.start_pos = 0
+		self.stop_pos = 0
 		self.end_pos = len(self.sentence) - 1
 		return self.sentence
 
@@ -117,7 +118,11 @@ class Tokenizer :
 				if now_status != 'white_space' :
 					word = self.sentence[self.start_pos:self.stop_pos]
 					status = self.name_literator(now_status.upper(),word)
+					self.start_pos = self.stop_pos
+					#print(self.start_pos)
+					now_status = 'start'
 					return {'word':word, 'status':status}
+				#print(self.start_pos)
 				self.start_pos = self.stop_pos
 				now_status = 'start'
 			else :
