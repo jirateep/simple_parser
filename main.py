@@ -8,5 +8,6 @@ tokenizer = Tokenizer()
 while True :
 	sentence = input()
 	if len(sentence) > 0 :
-		result = tokenizer.tokenizing(sentence)
+		tokenizer.set_tokenizer(sentence)
+		result = tokenizer.tokenizing()
 		printing(result)

@@ -75,6 +75,12 @@ class Tokenizer :
 			}
 		}
 
+	def set_tokenizer(self, sentence) :
+		self.sentence = sentence
+		self.start_pos = self.stop_pos = 0
+		self.end_pos = len(sentence) - 1
+		
+
 	def get_status(self, status, now_type) :
 		return self.soul[status][now_type]
 
@@ -92,25 +98,21 @@ class Tokenizer :
 		else :
 			return 'error'
 
-	def tokenizing(self, sentence) :
+	def tokenizing(self) :
 		result = []
-		start_pos = stop_pos = 0
-		end_pos = len(sentence) - 1
 		now_status = 'start'
 		is_cut = False
-		while stop_pos <= end_pos :
-			now_char = sentence[stop_pos]
+		while self.stop_pos <= self.end_pos :
+			now_char = self.sentence[self.stop_pos]
 			char_type = self.get_char_type(now_char)
 			now_status, is_cut = self.get_status(now_status, char_type)
 			if is_cut :
-				#print(now_status, sentence[start_pos:stop_pos])
 				if now_status != 'white_space' :
-					result.append({'word':sentence[start_pos:stop_pos], 'status':now_status.upper()})
-				start_pos = stop_pos
+					result.append({'word':self.sentence[self.start_pos:self.stop_pos], 'status':now_status.upper()})
+				self.start_pos = self.stop_pos
 				now_status = 'start'
 			else :
-				stop_pos += 1
+				self.stop_pos += 1
 		if now_status != 'white_space' :
-			result.append({'word':sentence[start_pos:stop_pos], 'status':now_status.upper()})
-		#print(now_status, sentence[start_pos:stop_pos])
+			result.append({'word':self.sentence[self.start_pos:self.stop_pos], 'status':now_status.upper()})
 		return result
