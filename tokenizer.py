@@ -1,4 +1,11 @@
 class Tokenizer :
+	
+	def set_tokenizer(self, sentence='') :
+		self.sentence = sentence.rstrip()
+		self.start_pos = self.stop_pos = 0
+		self.end_pos = len(self.sentence) - 1
+		return self.sentence
+
 	def __init__(self) :
 		self.soul = {
 			'start' : 
@@ -74,12 +81,7 @@ class Tokenizer :
 				'error' : ['literal',True]
 			}
 		}
-
-	def set_tokenizer(self, sentence) :
-		self.sentence = sentence.rstrip()
-		self.start_pos = self.stop_pos = 0
-		self.end_pos = len(self.sentence) - 1
-		return self.sentence
+		self.set_tokenizer()
 
 	def get_status(self, status, now_type) :
 		return self.soul[status][now_type]

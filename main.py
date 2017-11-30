@@ -1,5 +1,5 @@
 from tokenizer import Tokenizer
-from parser import Parser
+from parsers import Parser
 
 sentence = ' '
 tokenizer = Tokenizer()
