@@ -24,16 +24,16 @@ class Parser :
 			'S1' : 
 			{
 				'ID' : ['ID', '=', 'E', ';'],
-				'INT' : ['ERR'],
-				'REAL' : ['ERR'],
-				'+' : ['ERR'],
-				'-' : ['ERR'],
-				'/' : ['ERR'],
-				'*' : ['ERR'],
-				'(' : ['ERR'],
-				')' : ['ERR'],
-				'=' : ['ERR'],
-				';' : ['ERR'],
+				'INT' : ['ERROR'],
+				'REAL' : ['ERROR'],
+				'+' : ['ERROR'],
+				'-' : ['ERROR'],
+				'/' : ['ERROR'],
+				'*' : ['ERROR'],
+				'(' : ['ERROR'],
+				')' : ['ERROR'],
+				'=' : ['ERROR'],
+				';' : ['ERROR'],
 				'$' : []
 			},
 			'E' : 
@@ -88,8 +88,8 @@ class Parser :
 				'REAL' : [],
 				'+' : [],
 				'-' : [],
-				'/' : ['/','F','T'],
-				'*' : ['*','F','T'],
+				'/' : ['/','F','T1'],
+				'*' : ['*','F','T1'],
 				'(' : [],
 				')' : [],
 				'=' : [],
@@ -101,15 +101,15 @@ class Parser :
 				'ID' : ['ID','A'],
 				'INT' : ['INT'],
 				'REAL' : ['REAL'],
-				'+' : ['ERR'],
-				'-' : ['ERR'],
-				'/' : ['ERR'],
-				'*' : ['ERR'],
+				'+' : ['ERROR'],
+				'-' : ['ERROR'],
+				'/' : ['ERROR'],
+				'*' : ['ERROR'],
 				'(' : ['(','E',')'],
-				')' : ['ERR'],
-				'=' : ['ERR'],
-				';' : ['ERR'],
-				'$' : []
+				')' : ['ERROR'],
+				'=' : ['ERROR'],
+				';' : ['ERROR'],
+				'$' : ['ERROR']
 			},
 			'A' : 
 			{
@@ -129,7 +129,7 @@ class Parser :
 		}
 
 	def parsing(self, token) :
-		# print(self.stack, token)
+		print(self.stack, token)
 		if len(self.stack) == 0 :
 			return False
 		if self.stack[0] == token :
@@ -140,7 +140,7 @@ class Parser :
 			if front not in self.soul :
 				return False
 			self.stack = self.soul[front][token] + self.stack
-			if self.stack[0] == 'ERR' :
+			if self.stack[0] == 'ERROR' :
 				return False
 			return self.parsing(token)
 

@@ -11,9 +11,9 @@ while True :
 		parser.set_parser()
 		tokenizer.set_tokenizer(sentence)
 		while not tokenizer.is_end() :
-			result = tokenizer.next()
+			token = tokenizer.next()
 			# print(result)
-			if not parser.parsing(result['status']) :
+			if token['status'] == 'ERROR' or not parser.parsing(token['status']) :
 				break
 		if parser.is_accept() :
 			# print('accept')
