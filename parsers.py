@@ -5,6 +5,7 @@ class Parser :
 
 	def __init__(self) :
 		self.set_parser()
+		self.tokens = ['ID', 'INT', 'REAL', '+', '-', '/', '*', '(', ')', '=', ';', '$']
 		self.soul = {
 			'S' : 
 			{
@@ -132,18 +133,20 @@ class Parser :
 		# print(self.stack, token)
 		if len(self.stack) == 0 :
 			return False
-		if self.stack[0] == token :
-			self.stack.pop(0)
-			return True
-		else :
-			front = self.stack[0]
-			if front not in self.soul :
+		front = self.stack[0]
+		if front in self.tokens :
+			if front == token :
+				self.stack.pop(0)
+				return True
+			if front != '$' :
 				return False
-			self.stack.pop(0)
-			self.stack = self.soul[front][token] + self.stack
-			if self.stack[0] == 'ERROR' :
-				return False
-			return self.parsing(token)
+		if front not in self.soul.keys() :
+			return False
+		self.stack.pop(0)
+		self.stack = self.soul[front][token] + self.stack
+		# if self.stack[0] == 'ERROR' :
+		#	return False
+		return self.parsing(token)
 
 	def is_accept(self) :
 		return self.parsing('$')
