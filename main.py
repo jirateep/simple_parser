@@ -5,6 +5,7 @@ sentence = ' '
 tokenizer = Tokenizer()
 parser = Parser()
 accept_nb = reject_nb = 0
+check = True
 while True :
 	sentence = input()
 	if len(sentence) > 0 :
@@ -15,7 +16,7 @@ while True :
 			# print(result)
 			if token['status'] == 'ERROR' or not parser.parsing(token['status']) :
 				break
-		if parser.is_accept() :
+		if tokenizer.is_end() and parser.is_accept() :
 			# print('accept')
 			accept_nb += 1
 		else :

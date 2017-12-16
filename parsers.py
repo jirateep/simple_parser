@@ -136,9 +136,10 @@ class Parser :
 			self.stack.pop(0)
 			return True
 		else :
-			front = self.stack.pop(0)
+			front = self.stack[0]
 			if front not in self.soul :
 				return False
+			self.stack.pop(0)
 			self.stack = self.soul[front][token] + self.stack
 			if self.stack[0] == 'ERROR' :
 				return False
