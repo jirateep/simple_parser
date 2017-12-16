@@ -13,12 +13,11 @@ while True :
 		while not tokenizer.is_end() :
 			result = tokenizer.next()
 			# print(result)
-			check = parser.new_token(result['status'])
+			check = parser.parsing(result['status'])
 			if not check :
 				print('wrong syntax')
 		if check :
-			check = parser.is_correct()
-			if check :
+			if parser.is_accept() :
 				print('correct')
 			else :
 				print('wrong')

@@ -1,7 +1,7 @@
 class Parser :
 
 	def set_parser(self) :
-		self.stack = ['S']
+		self.stack = ['S', '$']
 		self.tokens = []
 
 	def __init__(self) :
@@ -129,46 +129,20 @@ class Parser :
 			},
 		}
 
-	def get_list(self, token) :
-		poping = self.stack.pop(0)
-		#print(poping)
-		#print(token)
-		return self.soul[poping][token]
-
-	def is_correct(self) :
-		while not self.delete_same_token() and len(self.stack) != 0 :
-			add_list = self.get_list('')
-			if add_list == ['error'] :
+	def parsing(self, token) :
+		#print(self.stack, token)
+		if self.stack[0] == token :
+			self.stack.pop(0)
+			return True
+		else :
+			front = self.stack.pop(0)
+			if front not in self.soul :
 				return False
-			self.stack = add_list + self.stack
-			#print('last stack: ' + str(self.stack))
-		return True
-
-	def delete_same_token(self) :
-		check = False
-		while len(self.tokens) > 0 and len(self.stack) > 0 :
-			if self.stack[0] == self.tokens[0] :
-				self.stack.pop(0)
-				self.tokens.pop(0)
-				check = True
-			else :
-				break
-		return check
-		#print(self.tokens)
-		#print(self.stack)
-
-	def new_token(self, token) :
-		#print('in: ' + token)
-		self.tokens = [token] + self.tokens
-		#self.tokens.append(token)
-		while not self.delete_same_token() :
-			add_list = self.get_list(token)
-			if add_list == ['error'] :
+			self.stack = self.soul[front][token] + self.stack
+			if self.stack[0] == 'error' :
 				return False
-			self.stack = add_list + self.stack
-			#print('be stack: ' + str(self.stack))
-		
-		#print('stack: ' + str(self.stack))
-		#print('tokens: ' + str(self.tokens))
-		#print()
-		return True
+			return self.parsing(token)
+
+	def is_accept(self) :
+		self.parsing('$')
+		return self.stack == []
