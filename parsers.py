@@ -25,16 +25,16 @@ class Parser :
 			'S1' : 
 			{
 				'ID' : ['ID', '=', 'E', ';'],
-				'INT' : ['error'],
-				'REAL' : ['error'],
-				'+' : ['error'],
-				'-' : ['error'],
-				'/' : ['error'],
-				'*' : ['error'],
-				'(' : ['error'],
-				')' : ['error'],
-				'=' : ['error'],
-				';' : ['error'],
+				'INT' : ['ERR'],
+				'REAL' : ['ERR'],
+				'+' : ['ERR'],
+				'-' : ['ERR'],
+				'/' : ['ERR'],
+				'*' : ['ERR'],
+				'(' : ['ERR'],
+				')' : ['ERR'],
+				'=' : ['ERR'],
+				';' : ['ERR'],
 				'$' : []
 			},
 			'E' : 
@@ -102,14 +102,14 @@ class Parser :
 				'ID' : ['ID','A'],
 				'INT' : ['INT'],
 				'REAL' : ['REAL'],
-				'+' : ['error'],
-				'-' : ['error'],
-				'/' : ['error'],
-				'*' : ['error'],
+				'+' : ['ERR'],
+				'-' : ['ERR'],
+				'/' : ['ERR'],
+				'*' : ['ERR'],
 				'(' : ['(','E',')'],
-				')' : ['error'],
-				'=' : ['error'],
-				';' : ['error'],
+				')' : ['ERR'],
+				'=' : ['ERR'],
+				';' : ['ERR'],
 				'$' : []
 			},
 			'A' : 
@@ -139,7 +139,7 @@ class Parser :
 			if front not in self.soul :
 				return False
 			self.stack = self.soul[front][token] + self.stack
-			if self.stack[0] == 'error' :
+			if self.stack[0] == 'ERR' :
 				return False
 			return self.parsing(token)
 
