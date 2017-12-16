@@ -20,7 +20,7 @@ class Parser :
 				')' : [],
 				'=' : [],
 				';' : [],
-				'' : []
+				'$' : []
 			},
 			'S1' : 
 			{
@@ -35,7 +35,7 @@ class Parser :
 				')' : ['error'],
 				'=' : ['error'],
 				';' : ['error'],
-				'' : []
+				'$' : []
 			},
 			'E' : 
 			{
@@ -50,7 +50,7 @@ class Parser :
 				')' : ['T','E1'],
 				'=' : ['T','E1'],
 				';' : ['T','E1'],
-				'' : ['T','E1']
+				'$' : ['T','E1']
 			},
 			'E1' : 
 			{
@@ -65,7 +65,7 @@ class Parser :
 				')' : [],
 				'=' : [],
 				';' : [],
-				'' : []
+				'$' : []
 			},
 			'T' : 
 			{
@@ -80,7 +80,7 @@ class Parser :
 				')' : ['F','T1'],
 				'=' : ['F','T1'],
 				';' : ['F','T1'],
-				'' : ['F','T1']
+				'$' : ['F','T1']
 			},
 			'T1' : 
 			{
@@ -95,7 +95,7 @@ class Parser :
 				')' : [],
 				'=' : [],
 				';' : [],
-				'' : []
+				'$' : []
 			},
 			'F' : 
 			{
@@ -110,7 +110,7 @@ class Parser :
 				')' : ['error'],
 				'=' : ['error'],
 				';' : ['error'],
-				'' : []
+				'$' : []
 			},
 			'A' : 
 			{
@@ -125,12 +125,12 @@ class Parser :
 				')' : [],
 				'=' : [],
 				';' : [],
-				'' : []
+				'$' : []
 			},
 		}
 
 	def parsing(self, token) :
-		#print(self.stack, token)
+		# print(self.stack, token)
 		if self.stack[0] == token :
 			self.stack.pop(0)
 			return True
