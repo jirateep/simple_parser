@@ -107,6 +107,9 @@ class Tokenizer :
 	def name_literator(self, status, word) :
 		return word if status == 'LITERAL' else status
 
+	def name_error(self, status, word) :
+		return 'ERROR' if status in ['BEFORE_REAL', 'START'] else status
+
 	def next(self) :
 		now_status = 'start'
 		is_cut = False
@@ -130,5 +133,7 @@ class Tokenizer :
 		if now_status != 'white_space' :
 			word = self.sentence[self.start_pos:self.stop_pos]
 			status = self.name_literator(now_status.upper(),word)
+			status = self.name_error(status.upper(),word)
+			# print(word, status)
 			return {'word':word, 'status':status}
 		return

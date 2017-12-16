@@ -129,7 +129,7 @@ class Parser :
 		}
 
 	def parsing(self, token) :
-		print(self.stack, token)
+		# print(self.stack, token)
 		if len(self.stack) == 0 :
 			return False
 		if self.stack[0] == token :
