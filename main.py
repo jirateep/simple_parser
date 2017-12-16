@@ -4,6 +4,7 @@ from parsers import Parser
 sentence = ' '
 tokenizer = Tokenizer()
 parser = Parser()
+accept_nb = reject_nb = 0
 while True :
 	sentence = input()
 	if len(sentence) > 0 :
@@ -15,6 +16,9 @@ while True :
 			if not parser.parsing(result['status']) :
 				break
 		if parser.is_accept() :
-			print('correct')
+			# print('accept')
+			accept_nb += 1
 		else :
-			print('wrong')
+			# print('reject')
+			reject_nb += 1
+		print('accept: %d, reject: %d' %(accept_nb, reject_nb))
