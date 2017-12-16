@@ -144,8 +144,6 @@ class Parser :
 			return False
 		self.stack.pop(0)
 		self.stack = self.soul[front][token] + self.stack
-		# if self.stack[0] == 'ERROR' :
-		#	return False
 		return self.parsing(token)
 
 	def is_accept(self) :

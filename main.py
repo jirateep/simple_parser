@@ -13,7 +13,7 @@ while True :
 		check = True
 		while not tokenizer.is_end() :
 			token = tokenizer.next()
-			# print(result)
+			# print(token)
 			if token['status'] == 'ERROR' :
 				break
 			if not parser.parsing(token['status']) :
