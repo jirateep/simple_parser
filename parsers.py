@@ -2,7 +2,6 @@ class Parser :
 
 	def set_parser(self) :
 		self.stack = ['S', '$']
-		self.tokens = []
 
 	def __init__(self) :
 		self.set_parser()
@@ -131,6 +130,8 @@ class Parser :
 
 	def parsing(self, token) :
 		# print(self.stack, token)
+		if len(self.stack) == 0 :
+			return False
 		if self.stack[0] == token :
 			self.stack.pop(0)
 			return True
@@ -144,5 +145,4 @@ class Parser :
 			return self.parsing(token)
 
 	def is_accept(self) :
-		self.parsing('$')
-		return self.stack == []
+		return self.parsing('$')
