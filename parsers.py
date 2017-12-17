@@ -129,6 +129,9 @@ class Parser :
 			},
 		}
 
+	def get_status(self, front, token) :
+		return self.soul[front][token]
+
 	def parsing(self, token) :
 		# print(self.stack, token)
 		if len(self.stack) == 0 :
@@ -143,7 +146,7 @@ class Parser :
 		if front not in self.soul.keys() :
 			return False
 		self.stack.pop(0)
-		self.stack = self.soul[front][token] + self.stack
+		self.stack = self.get_status(front, token) + self.stack
 		return self.parsing(token)
 
 	def is_accept(self) :
