@@ -4,8 +4,9 @@ class Tokenizer :
 		self.sentence = sentence.rstrip()
 		self.start_pos = 0
 		self.stop_pos = 0
-		self.end_pos = len(self.sentence) - 1
-		return self.sentence
+		self.end_pos = len(self.sentence)
+		self.status = 'start'
+		# return self.sentence
 
 	def __init__(self) :
 		self.set_tokenizer()
@@ -102,7 +103,7 @@ class Tokenizer :
 			return 'error'
 
 	def is_end(self) :
-		return self.stop_pos > self.end_pos
+		return self.stop_pos >= self.end_pos
 
 	def name_literator(self, status, word) :
 		return word if status == 'LITERAL' else status
@@ -113,7 +114,7 @@ class Tokenizer :
 	def next(self) :
 		now_status = 'start'
 		is_cut = False
-		while self.stop_pos <= self.end_pos :
+		while not self.is_end() :
 			now_char = self.sentence[self.stop_pos]
 			char_type = self.get_char_type(now_char)
 			now_status, is_cut = self.get_status(now_status, char_type)
