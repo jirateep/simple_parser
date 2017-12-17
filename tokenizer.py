@@ -6,7 +6,6 @@ class Tokenizer :
 		self.stop_pos = 0
 		self.end_pos = len(self.sentence)
 		self.status = 'start'
-		# return self.sentence
 
 	def __init__(self) :
 		self.set_tokenizer()
@@ -111,30 +110,27 @@ class Tokenizer :
 	def name_error(self, status, word) :
 		return 'ERROR' if status in ['BEFORE_REAL', 'START'] else status
 
+	def edit_status(self, status, word) :
+		status = self.name_literator(status.upper(),word)
+		status = self.name_error(status.upper(),word)
+		return status
+
 	def next(self) :
-		now_status = 'start'
-		is_cut = False
 		while not self.is_end() :
 			now_char = self.sentence[self.stop_pos]
 			char_type = self.get_char_type(now_char)
-			now_status, is_cut = self.get_status(now_status, char_type)
+			self.status, is_cut = self.get_status(self.status, char_type)
 			if is_cut :
-				if now_status != 'white_space' :
-					word = self.sentence[self.start_pos:self.stop_pos]
-					status = self.name_literator(now_status.upper(),word)
-					self.start_pos = self.stop_pos
-					#print(self.start_pos)
-					now_status = 'start'
-					return {'word':word, 'status':status}
-				#print(self.start_pos)
+				word = self.sentence[self.start_pos:self.stop_pos]
+				result = {'word':word, 'status':self.edit_status(self.status, word)} 
 				self.start_pos = self.stop_pos
-				now_status = 'start'
+				self.status = 'start'
+				if result['status'].lower() != 'white_space' :
+					return result
 			else :
 				self.stop_pos += 1
-		if now_status != 'white_space' :
-			word = self.sentence[self.start_pos:self.stop_pos]
-			status = self.name_literator(now_status.upper(),word)
-			status = self.name_error(status.upper(),word)
-			# print(word, status)
-			return {'word':word, 'status':status}
+		word = self.sentence[self.start_pos:self.stop_pos]
+		result = {'word':word, 'status':self.edit_status(self.status, word)} 
+		if result['status'].lower() != 'white_space' :
+			return result
 		return
