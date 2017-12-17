@@ -115,22 +115,24 @@ class Tokenizer :
 		status = self.name_error(status.upper(),word)
 		return status
 
+	def get_token(self) :
+		word = self.sentence[self.start_pos:self.stop_pos]
+		return {'word':word, 'status':self.edit_status(self.status, word)}
+
 	def next(self) :
 		while not self.is_end() :
 			now_char = self.sentence[self.stop_pos]
 			char_type = self.get_char_type(now_char)
 			self.status, is_cut = self.get_status(self.status, char_type)
 			if is_cut :
-				word = self.sentence[self.start_pos:self.stop_pos]
-				result = {'word':word, 'status':self.edit_status(self.status, word)} 
+				result = self.get_token() 
 				self.start_pos = self.stop_pos
 				self.status = 'start'
 				if result['status'].lower() != 'white_space' :
 					return result
 			else :
 				self.stop_pos += 1
-		word = self.sentence[self.start_pos:self.stop_pos]
-		result = {'word':word, 'status':self.edit_status(self.status, word)} 
+		result = self.get_token()
 		if result['status'].lower() != 'white_space' :
 			return result
 		return
